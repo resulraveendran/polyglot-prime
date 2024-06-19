@@ -1,4 +1,4 @@
-name: Install DVM and Execute Command
+name: Install DVM and Execute Commands
 
 on:
   push:
@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Install DVM
         run: |
@@ -37,7 +40,6 @@ jobs:
         run: |
           echo "${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}:${{ secrets.DB_NAME }}:${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}" > ~/.pgpass
           chmod 600 ~/.pgpass
-          
 
       - name: Clone Polyglot Prime repository
         run: git clone https://github.com/tech-by-design/polyglot-prime.git
