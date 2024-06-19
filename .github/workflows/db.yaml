@@ -1,4 +1,4 @@
-name: Install DVM and Execute Commands
+name: Install DVM and Execute Command
 
 on:
   push:
