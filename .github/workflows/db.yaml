@@ -22,20 +22,20 @@ jobs:
       - name: Install Deno
         run: |
           curl -fsSL https://deno.land/x/install/install.sh | sh
-          echo 'export DENO_INSTALL="$HOME/.deno"' >> $HOME/.bashrc
-          echo 'export PATH="$DENO_INSTALL/bin:$PATH"' >> $HOME/.bashrc
-          source $HOME/.bashrc
+          echo 'export DENO_INSTALL="$HOME/.deno"' >> $GITHUB_ENV
+          echo 'export PATH="$DENO_INSTALL/bin:$PATH"' >> $GITHUB_ENV
+          export DENO_INSTALL="$HOME/.deno"
+          export PATH="$DENO_INSTALL/bin:$PATH"
 
       - name: Get SQL-Aide Version
         id: get-sqla-version
         run: |
           SQLa_VERSION=$(curl -fsSL https://api.github.com/repos/netspective-labs/sql-aide/tags | jq '.[0].name' -r)
-          echo "::set-output name=sqla_version::$SQLa_VERSION"
+          echo "SQLa_VERSION=$SQLa_VERSION" >> $GITHUB_ENV
 
       - name: Install SQL-Aide
         run: |
-          source $HOME/.bashrc
-          SQLa_VERSION=${{ steps.get-sqla-version.outputs.sqla_version }}
+          SQLa_VERSION=${{ env.SQLa_VERSION }}
           deno install -A -f https://raw.githubusercontent.com/netspective-labs/sql-aide/${SQLa_VERSION}/lib/postgres/pgpass/pgpass.ts
 
       - name: Create .pgpass file
