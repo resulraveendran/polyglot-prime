@@ -22,14 +22,19 @@ jobs:
       - name: Install DVM
         run: |
           curl -fsSL https://dvm.deno.dev | sh
-          export PATH="$HOME/.dvm/bin:$PATH"
+          echo 'export DVM_DIR="$HOME/.dvm"' >> $HOME/.bashrc
+          echo '[ -s "$DVM_DIR/dvm.sh" ] && \. "$DVM_DIR/dvm.sh"' >> $HOME/.bashrc
+          echo 'export PATH="$DVM_DIR/bin:$PATH"' >> $HOME/.bashrc
+          source $HOME/.bashrc
 
       - name: Install Deno
         run: |
+          source $HOME/.bashrc
           dvm install latest
           dvm use latest
-          export PATH="$HOME/.deno/bin:$PATH"
-          
+          echo 'export PATH="$HOME/.deno/bin:$PATH"' >> $HOME/.bashrc
+          source $HOME/.bashrc
+
       - name: Get SQL-Aide Version
         id: get-sqla-version
         run: |
@@ -38,9 +43,9 @@ jobs:
 
       - name: Install SQL-Aide
         run: |
+          source $HOME/.bashrc
           SQLa_VERSION=${{ steps.get-sqla-version.outputs.sqla_version }}
           deno install -A -f https://raw.githubusercontent.com/netspective-labs/sql-aide/${SQLa_VERSION}/lib/postgres/pgpass/pgpass.ts
-          export PATH="$HOME/.deno/bin:$PATH"
 
       - name: Create .pgpass file
         run: |
