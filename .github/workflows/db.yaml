@@ -1,4 +1,4 @@
-name: Install Deno and Execute Command
+name: Install Deno and Execute Commands
 
 on:
   push:
