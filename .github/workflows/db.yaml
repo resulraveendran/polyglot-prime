@@ -19,14 +19,6 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Install Deno
-        run: |
-          curl -fsSL https://deno.land/x/install/install.sh | sh
-          echo 'export DENO_INSTALL="$HOME/.deno"' >> $GITHUB_ENV
-          echo 'export PATH="$DENO_INSTALL/bin:$PATH"' >> $GITHUB_ENV
-          export DENO_INSTALL="$HOME/.deno"
-          export PATH="$DENO_INSTALL/bin:$PATH"
-
       - name: Create .pgpass file
         run: |
           echo "${{ secrets.DB_HOST }}:${{ secrets.DB_PORT }}:${{ secrets.DB_NAME }}:${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}" > ~/.pgpass
