@@ -41,4 +41,4 @@ jobs:
       - name: Run Migrations
         run: |
           cd polyglot-prime/udi-prime
-          ./udictl.ts ic migrate --destroy-first --conn-id MY_SANDBOX_2
+          ./udictl.ts ic migrate --conn-id MY_SANDBOX_2
