@@ -47,3 +47,9 @@ jobs:
         run: |
           cd polyglot-prime/udi-prime
           ./udictl.ts ic test --conn-id MY_SANDBOX_2
+
+      - name: Display test log
+        run: |
+          cd polyglot-prime/udi-prime
+          log_file=$(ls -t ./udictl-test-*.log | head -n 1)
+          cat "$log_file"
