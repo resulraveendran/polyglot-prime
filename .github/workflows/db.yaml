@@ -42,3 +42,8 @@ jobs:
         run: |
           cd polyglot-prime/udi-prime
           ./udictl.ts ic migrate --conn-id MY_SANDBOX_2
+          
+      - name: Run test
+        run: |
+          cd polyglot-prime/udi-prime
+          ./udictl.ts ic test --conn-id MY_SANDBOX_2
